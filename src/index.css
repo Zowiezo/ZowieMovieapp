@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global background and text color for both light and dark themes */
+body {
+  background-color: #fefefe; /* Light mode background color */
+  color: #333333; /* Default text color for light mode */
+}
+
+/* Dark mode styles */
+body.dark {
+  background-color: #191624; /* Dark mode background color */
+  color: #fefefe; /* Text color for dark mode */
+}
+
+/* You can also define specific styles for elements when dark mode is active */
+a {
+  color: #1f77ff; /* Default link color for light mode */
+}
+
+.dark a {
+  color: #82aaff; /* Link color for dark mode */
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Add some global styles to the container elements */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Add custom styles for Tailwind's dark mode variant */
+.dark .bg-backgroundDark {
+  background-color: #3b1f37; /* Background color for dark mode */
+}
+
+.bg-backgroundLight {
+  background-color: #fefefe; /* Background color for light mode */
+}
+
+.dark .bg-backgroundLight {
+  background-color: #fefefe; /* Ensure it changes properly in dark mode */
+}
+
+.text-primary {
+  color: #fafafa;
+}
+
+.text-secColor {
+  color: #efefef;
+}
+
+/* Example of applying box shadows in dark mode */
+.dark .shadow-glow {
+  box-shadow: 0 0 18px rgb(255, 0, 0, 0.7);
+}
+
+.shadow-glowLight {
+  box-shadow: 0 0 24px rgb(255, 0, 0, 0.5);
+}
+
+/* Tailwind's dark mode utility */
+@layer base {
+  /* Make sure all elements that need to support dark mode have proper styles */
+  .dark .text-gray-50 {
+    color: #f0f0f0;
+  }
+
+  .dark .bg-black {
+    background-color: #000;
+  }
+
+  .dark .bg-primary {
+    background-color: #3a3a3a; /* Example dark primary background */
+  }
+}
+
+/* If you want to use the default Tailwind dark mode variants: */
+@layer components {
+  .dark .btn-dark {
+    background-color: #333;
+    color: #fff;
+  }
+}

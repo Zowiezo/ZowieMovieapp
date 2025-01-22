@@ -1,0 +1,80 @@
+import React, { useCallback } from "react";
+import { AnimatePresence, m } from "framer-motion";
+import SidebarNavItem from "./SidebarNavItem.js";
+import ThemeOption from "./SidebarThemeOption.js";
+import Logo from "../Logo/index.js";
+import Overlay from "../Overlay/index.js";
+import { useGlobalContext } from "../../context/globalContext.js";
+import { useTheme } from "../../context/themeContext.js";
+import { useOnClickOutside } from "../../hooks/useOnClickOutside.js";
+import { useMotion } from "../../hooks/useMotion.js";
+import { navLinks, themeOptions } from "../../constants/index.js";
+import { sideBarHeading } from "../../styles/index.js";
+import { cn } from "../../utils/helper.js";
+
+const SideBar = () => {
+  const { showSidebar, setShowSidebar } = useGlobalContext();
+  const { theme } = useTheme();
+  const { slideIn } = useMotion();
+
+  const closeSideBar = useCallback(() => {
+    setShowSidebar(false);
+  }, [setShowSidebar]);
+
+  const { ref } = useOnClickOutside({
+    action: closeSideBar,
+    enable: showSidebar,
+  });
+
+  return (
+    <AnimatePresence>
+      {showSidebar && (
+        <Overlay>
+          <m.nav
+            variants={slideIn("right", "tween", 0, 0.3)}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            ref={ref}
+            className={cn(
+              `fixed top-0 right-0 sm:w-[40%] xs:w-[220px] w-[195px] h-full z-[25] overflow-y-auto shadow-md md:hidden p-4 pb-0 dark:text-gray-200 text-gray-600`,
+              theme === "Dark" ? "dark-glass" : "light-glass"
+            )}
+          >
+            <div className="flex items-center justify-center">
+              <Logo />
+            </div>
+
+            <div className="p-4 sm:pt-8 xs:pt-6 pt-[22px] h-full flex flex-col">
+              <h3 className={sideBarHeading}>Menu</h3>
+              <ul className="flex flex-col sm:gap-2 xs:gap-[6px] gap-1 capitalize xs:text-[14px] text-[13.5px] font-medium">
+                {navLinks.map((link) => {
+                  return (
+                    <SidebarNavItem
+                      link={link}
+                      closeSideBar={closeSideBar}
+                      key={link.title.replaceAll(" ", "")}
+                    />
+                  );
+                })}
+              </ul>
+
+              <h3 className={cn(`mt-4`, sideBarHeading)}>Theme</h3>
+              <ul className="flex flex-col sm:gap-2 xs:gap-[4px] gap-[2px] capitalize text-[14.75px] font-medium">
+                {themeOptions.map((theme) => {
+                  return <ThemeOption theme={theme} key={theme.title} />;
+                })}
+              </ul>
+
+              <p className="xs:text-[12px] text-[11.75px] mt-auto sm:mb-6 mb-[20px] text-center font-nunito dark:text-gray-200">
+                &copy; 2025 by Pink Unicorn Movies. All rights reserved.
+              </p>
+            </div>
+          </m.nav>
+        </Overlay>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default SideBar;
