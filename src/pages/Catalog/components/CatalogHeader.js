@@ -1,5 +1,5 @@
 import React from "react";
-import bgImg from "../../../assets/images/footer-bg.webp";
+import bgImg from "../../../assets/images/footer-bg.png";
 
 const CatalogHeader = ({ category }) => {
   return (

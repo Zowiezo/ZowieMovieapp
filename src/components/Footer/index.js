@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../Logo/index.js";
-import FooterImg from "../../assets/images/footer-bg.webp";
+import FooterImg from "../../assets/images/footer-bg.png";
 import { footerLinks } from "../../constants/index.js";
 import { maxWidth } from "../../styles/index.js";
 import { cn } from "../../utils/helper.js";
